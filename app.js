@@ -79,20 +79,17 @@
 //   res.redirect("/");
 // });
 
-
 require("dotenv").config();
 const express = require("express");
 const bodyParser = require("body-parser");
 const request = require("request");
 const https = require("https");
-const path = require('path');
+const path = require("path");
 
 const app = express();
 const port = 3000;
 
-// Serve static files from the root directory
-app.use(express.static(__dirname));
-
+app.use(express.static(__dirname)); // Serve static files from the root directory
 app.use(bodyParser.urlencoded({ extended: true }));
 
 app.listen(process.env.PORT || port, () => {
@@ -100,8 +97,8 @@ app.listen(process.env.PORT || port, () => {
 });
 
 // Fallback route for serving index.html
-app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, 'index.html'));
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "index.html"));
 });
 
 app.post("/", (req, res) => {
@@ -135,15 +132,15 @@ app.post("/", (req, res) => {
     try {
       response.on("data", (data) => {
         if (response.statusCode === 200) {
-          res.sendFile(path.join(__dirname, 'success.html'));
+          res.sendFile(path.join(__dirname, "success.html"));
         } else {
-          res.sendFile(path.join(__dirname, 'error.html'));
+          res.sendFile(path.join(__dirname, "error.html"));
         }
       });
     } catch (error) {
       response.on("error", (error) => {
         console.error(error, response.statusCode);
-        res.sendFile(path.join(__dirname, 'error.html'));
+        res.sendFile(path.join(__dirname, "error.html"));
       });
     }
   });
