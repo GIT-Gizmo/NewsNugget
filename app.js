@@ -95,13 +95,13 @@ app.use(express.static(__dirname)); // Serve static files from the root director
 
 app.use(bodyParser.urlencoded({ extended: true }));
 
-app.listen(process.env.PORT || port, () => {
-  console.log(`Server is running on ${port}`);
-});
+// app.listen(process.env.PORT || port, () => {
+//   console.log(`Server is running on ${port}`);
+// });
 
 // Fallback route for serving index.html
-app.get("*", (req, res) => {
-  res.sendFile(path.join(__dirname, "index.html"));
+app.get('/', (req, res) => {
+  res.sendFile(path.join(__dirname, 'index.html'));
 });
 
 app.post("/", (req, res) => {
