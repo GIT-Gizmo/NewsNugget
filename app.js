@@ -21,7 +21,7 @@ app.listen(process.env.PORT || port, () => {
 });
 
 app.get("/", (req, res) => {
-  res.sendFile(__dirname + "/signup.html");
+  res.sendFile(__dirname + "/index.html");
 });
 
 app.post("/", (req, res) => {
@@ -55,27 +55,25 @@ app.post("/", (req, res) => {
 
   const request = https.request(url, options, (response) => {
     try {
-        // const dataInfo = JSON.parse(data);
-        // const subscribed = dataInfo.new_members[0].status;
       response.on("data", (data) => {
         if (response.statusCode === 200) {
-            res.sendFile(__dirname + "/success.html")
+          res.sendFile(__dirname + "/success.html");
         } else {
-            res.sendFile(__dirname + "/error.html")
+          res.sendFile(__dirname + "/error.html");
         }
       });
     } catch (error) {
-        response.on("error", (error) => {
-            console.error(error, response.statusCode);
-            res.sendFile(__dirname + "/error.html");
-        })
+      response.on("error", (error) => {
+        console.error(error, response.statusCode);
+        res.sendFile(__dirname + "/error.html");
+      });
     }
   });
 
-//   request.write(jsonData);
+  request.write(jsonData);
   request.end();
 });
 
-app.post("/failure", (req, res) => {
-    res.redirect("/");
-})
+app.post("/error", (req, res) => {
+  res.redirect("/");
+});
